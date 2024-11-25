@@ -503,7 +503,6 @@ export const generateCoolAlternatives = (domain: string) => {
     .join("\n");
   return cool_alternativesFormat;
 };
-
 export async function clear() {
   clearMemory();
   clearInfoCache();

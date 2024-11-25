@@ -1,5 +1,6 @@
 import { handleEns } from "./handler/ens.js";
 import type { SkillGroup } from "@xmtp/message-kit";
+import { handleMemecoin } from "./handler/memecoin.js";
 
 export const skills: SkillGroup[] = [
   {
@@ -125,6 +126,23 @@ export const skills: SkillGroup[] = [
         description: "Get creative and available ENS name suggestions",
         examples: ["/ens"],
         params: {},
+      },
+      {
+        skill: "/deploymeme",
+        handler: handleMemecoin,
+        description: "Deploy a new memecoin on Starknet with automated Twitter integration",
+        examples: ["/deploymeme name=PepeCoin symbol=PEPE supply=1000000"],
+        params: {
+          name: {
+            type: "string",
+          },
+          symbol: {
+            type: "string",
+          },
+          supply: {
+            type: "string",
+          }
+        }
       },
     ],
   },
