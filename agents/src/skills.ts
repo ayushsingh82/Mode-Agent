@@ -130,11 +130,11 @@ export const skills: SkillGroup[] = [
         params: {},
       },
       {
-        skill: "/modestats",
+        skill: "modestats",
         handler: modeHandler.handleModeRequest.bind(modeHandler),
         description: "Get current Mode network statistics",
         examples: ["/modestats"],
-        params: {},
+        params:{}
       },
       {
         skill: "/modetransactions",
@@ -154,6 +154,24 @@ export const skills: SkillGroup[] = [
         examples: ["/modetoken address=0xA2aa501b19aff244D90cc15a4Cf739D2725B5729"],
         params: {
           address: {
+            type: "string",
+          }
+        }
+      },
+      {
+        skill: "/modeblocks",
+        handler: modeHandler.handleModeRequest.bind(modeHandler),
+        description: "Get latest blocks on Mode network", 
+        examples: ["/modeblocks"],
+        params: {}
+      },
+      {
+        skill: "/modetokens",
+        handler: modeHandler.handleModeRequest.bind(modeHandler),
+        description: "Search tokens on Mode network",
+        examples: ["/modetokens", "/modetokens query=USDT"],
+        params: {
+          query: {
             type: "string",
           }
         }
