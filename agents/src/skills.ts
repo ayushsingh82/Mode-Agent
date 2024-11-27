@@ -1,6 +1,8 @@
 import { handleEns } from "./handler/ens.js";
 import type { SkillGroup } from "@xmtp/message-kit";
-import { handleMemecoin } from "./handler/memecoin.js";
+import { ModeHandler } from "./handler/mode.js";
+
+const modeHandler = new ModeHandler();
 
 export const skills: SkillGroup[] = [
   {
@@ -128,22 +130,34 @@ export const skills: SkillGroup[] = [
         params: {},
       },
       {
-        skill: "/deploymeme",
-        handler: handleMemecoin,
-        description: "Deploy a new memecoin on Starknet with automated Twitter integration",
-        examples: ["/deploymeme name=PepeCoin symbol=PEPE supply=1000000"],
+        skill: "/modestats",
+        handler: modeHandler.handleModeRequest.bind(modeHandler),
+        description: "Get current Mode network statistics",
+        examples: ["/modestats"],
+        params: {},
+      },
+      {
+        skill: "/modetransactions",
+        handler: modeHandler.handleModeRequest.bind(modeHandler),
+        description: "Get latest Mode network transactions",
+        examples: ["/modetransactions", "/modetransactions limit=10"],
         params: {
-          name: {
-            type: "string",
-          },
-          symbol: {
-            type: "string",
-          },
-          supply: {
-            type: "string",
+          limit: {
+            type: "number",
           }
         }
       },
+      {
+        skill: "/modetoken",
+        handler: modeHandler.handleModeRequest.bind(modeHandler),
+        description: "Get information about a token on Mode network",
+        examples: ["/modetoken address=0xA2aa501b19aff244D90cc15a4Cf739D2725B5729"],
+        params: {
+          address: {
+            type: "string",
+          }
+        }
+      }
     ],
   },
 ];
