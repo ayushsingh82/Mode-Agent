@@ -367,41 +367,34 @@ export async function handleEns(
         message: `❌ Failed to get swap quote: ${error instanceof Error ? error.message : 'Unknown error'}`,
       };
     }
-  } else if (skill === "hi") {
-    const welcomeMessage = `
-╔════════════════════════════════╗
-║     ✨ ENS DOMAIN BOT ✨      ║
-╚═══════════════════════════════╝
-
-🎮 𝗠𝗔𝗜𝗡 𝗙𝗘𝗔𝗧𝗨𝗥𝗘𝗦:
-
-📌 𝗗𝗼𝗺𝗮𝗶𝗻 𝗠𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁
-   • /register [domain] ➜ Register new domain
-   • /info [domain] ➜ Get domain details
-   • /ens ➜ Available domains
-   • /check [domain] ➜ Check availability
-   • /renew [domain] ➜ Extend registration
-   
-💎 𝗗𝗲𝗙𝗶 𝗧𝗼𝗼𝗹𝘀
-   • /swap [fromToken] [toToken] [amount]
-     └─ Example: /swap BNB USDT 1
-     └─ Supported: BNB, USDT, BUSD, USDC
-   
-   • /portfolio [address] [chain]
-     └─ Example: /portfolio 0x1234...5678 eth
-     └─ View profit/loss and ROI
-
-🎲 𝗘𝘅𝘁𝗿𝗮 𝗙𝗲𝗮𝘁𝘂𝗿𝗲𝘀
-   • /cool [domain] ➜ Get creative suggestions
-   • /tip [address] ➜ Send tips to owners
-
-┏━━━━━━━━ 𝗤𝗨𝗜𝗖𝗞 𝗦𝗧𝗔𝗥𝗧 ━━━━━━━┓
-  1. /check vitalik.eth
-  2. /swap BNB USDT 1
-  3. /portfolio [your-address] eth
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-
-❓ Need help? Type /hi anytime!`;
+  } else if (skill === "hi" || skill === "help") {
+    const welcomeMessage = 
+      `🔍 ENS Commands:\n` +
+      `━━━━━━━━━━━━━━━━━━━━━\n` +
+      `1. /ens [domain]\n` +
+      `   Check ENS domain availability and get suggestions\n` +
+      `   Example: /ens web3\n\n` +
+      `2. /cool [domain]\n` +
+      `   Generate cool alternatives for an ENS domain\n` +
+      `   Example: /cool crypto\n\n` +
+      `3. /portfolio [address]\n` +
+      `   View ENS portfolio for an address\n` +
+      `   Example: /portfolio 0x123...\n\n` +
+      
+      `🌐 Mode Network Commands:\n` +
+      `━━━━━━━━━━━━━━━━━━━━━\n` +
+      `1. /modestats\n` +
+      `   Get current Mode network statistics\n\n` +
+      `2. /modeblocks\n` +
+      `   View latest blocks on Mode network\n\n` +
+      `3. /modetokens [query]\n` +
+      `   Search and view tokens on Mode network\n` +
+      `   Example: /modetokens query=USDT\n\n` +
+      `4. /modetransactions [limit]\n` +
+      `   View latest transactions on Mode network\n` +
+      `   Example: /modetransactions limit=10\n\n` +
+      
+      `❓ Need help? Type /hi anytime!`;
 
     await context.send(welcomeMessage);
 

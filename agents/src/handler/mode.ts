@@ -20,6 +20,16 @@ interface ModeToken {
   total_supply: string;
 }
 
+interface Transaction {
+  hash: string;
+  from: string;
+  to: string;
+  value: string;
+  fee: string;
+  timestamp: string;
+  status: string;
+}
+
 export class ModeHandler {
   private readonly MODE_API_URL = "https://explorer.mode.network/api/v2";
 
@@ -87,6 +97,29 @@ export class ModeHandler {
     }
   }
 
+  async getLatestTransactions(limit: number = 10): Promise<Transaction[]> {
+    try {
+      console.log("Fetching Mode transactions with limit:", limit);
+      const response = await axios.get(`${this.MODE_API_URL}/transactions`, {
+        params: {
+          limit: limit
+        },
+        headers: {
+          'accept': 'application/json'
+        }
+      });
+      console.log("Transactions response:", response.data);
+      return response.data.items || [];
+    } catch (error: any) {
+      console.error("Detailed transactions error:", {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      throw new Error(`Failed to fetch Mode transactions: ${error.message}`);
+    }
+  }
+
   async handleModeRequest(
     context: HandlerContext
   ): Promise<SkillResponse | undefined> {
@@ -133,6 +166,8 @@ export class ModeHandler {
         return { code: 200, message: "Blocks fetched successfully" };
       }
 
+      
+
       if (skill === "modetokens") {
         const query = params?.query || '';
         const tokens = await this.searchTokens(query);
@@ -153,6 +188,36 @@ export class ModeHandler {
           `━━━━━━━━━━━━━━━━━━━━━\n${tokenList}`
         );
         return { code: 200, message: "Tokens fetched successfully" };
+      }
+
+      if (skill === "modetransactions") {
+        const limit = parseInt(params?.limit) || 5;
+        const transactions = await this.getLatestTransactions(limit);
+        
+        if (!transactions || transactions.length === 0) {
+          await context.send("No transactions found");
+          return { code: 404, message: "No transactions found" };
+        }
+
+        const txList = transactions.map((tx, i) => 
+          `${i + 1}. Transaction Details\n` +
+          `   🔗 Hash: ${tx.hash}\n` +
+          `   📤 From: ${tx.from}\n` +
+          `   📥 To: ${tx.to}\n` +
+          `   💰 Value: ${tx.value}\n` +
+          `   🏷️ Fee: ${tx.fee}\n` +
+          `   ⏰ Time: ${tx.timestamp}\n` +
+          `   ✅ Status: ${tx.status}\n` +
+          `   🔍 View: https://explorer.mode.network/tx/${tx.hash}\n`
+        ).join('\n');
+
+        await context.send(
+          `🔄 Latest Mode Transactions\n` +
+          `━━━━━━━━━━━━━━━━━━━━━\n${txList}\n\n` +
+          `View more at: https://explorer.mode.network/transactions`
+        );
+
+        return { code: 200, message: "Transactions fetched successfully" };
       }
 
       return undefined;
