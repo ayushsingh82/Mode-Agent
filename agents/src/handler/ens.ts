@@ -369,38 +369,46 @@ export async function handleEns(
     }
   } else if (skill === "hi" || skill === "help") {
     const welcomeMessage = 
-      `🔍 ENS Commands:\n` +
-      `━━━━━━━━━━━━━━━━━━━━━\n` +
-      `1. /ens [domain]\n` +
-      `   Check ENS domain availability and get suggestions\n` +
-      `   Example: /ens web3\n\n` +
-      `2. /cool [domain]\n` +
-      `   Generate cool alternatives for an ENS domain\n` +
-      `   Example: /cool crypto\n\n` +
-      `3. /portfolio [address]\n` +
-      `   View ENS portfolio for an address\n` +
-      `   Example: /portfolio 0x123...\n\n` +
+      `🔍 Welcome to Web3 Assistant! 🌟\n\n` +
       
-      `🌐 Mode Network Commands:\n` +
+      `🔮 ENS Commands\n` +
       `━━━━━━━━━━━━━━━━━━━━━\n` +
-      `1. /modestats\n` +
-      `   Get current Mode network statistics\n\n` +
-      `2. /modeblocks\n` +
-      `   View latest blocks on Mode network\n\n` +
-      `3. /modetokens [query]\n` +
-      `   Search and view tokens on Mode network\n` +
-      `   Example: /modetokens query=USDT\n\n` +
-      `4. /modetransactions [limit]\n` +
-      `   View latest transactions on Mode network\n` +
-      `   Example: /modetransactions limit=10\n\n` +
+      `1️⃣ /ens [domain]\n` +
+      `   🔍 Check ENS domain availability\n` +
+      `   💡 Example: /ens web3\n\n` +
       
-      `❓ Need help? Type /hi anytime!`;
+      `2️⃣ /cool [domain]\n` +
+      `   ✨ Generate cool ENS alternatives\n` +
+      `   💡 Example: /cool crypto\n\n` +
+      
+      `3️⃣ /portfolio [address]\n` +
+      `   💼 View ENS portfolio for an address\n` +
+      `   💡 Example: /portfolio 0x123...\n\n` +
+      
+      `🚀 Mode Network Commands\n` +
+      `━━━━━━━━━━━━━━━━━━━━━\n` +
+      `1️⃣ /modestats\n` +
+      `   📊 Get current Mode network stats\n\n` +
+      
+      `2️⃣ /modeblocks\n` +
+      `   ⛓️ View latest blocks on Mode\n\n` +
+      
+      `3️⃣ /modetokens [query]\n` +
+      `   🪙 Search Mode network tokens\n` +
+      `   💡 Example: /modetokens query=USDT\n\n` +
+      
+      `4️⃣ /modetransactions [limit]\n` +
+      `   💫 View latest Mode transactions\n` +
+      `   💡 Example: /modetransactions limit=10\n\n` +
+      
+      `❓ Need help? Just type /hi anytime!\n` +
+      `🎯 Ready to explore? Try any command above!`;
 
     await context.send(welcomeMessage);
 
     return {
       code: 200,
-      message: `✨ Welcome! Try any command above to get started! ✨`,
+      message: "Welcome message sent successfully",
     };
   } else if (skill === "ens") {
     try {
